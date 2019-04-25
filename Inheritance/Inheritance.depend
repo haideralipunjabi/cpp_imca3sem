@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1556175503 source:c:\users\bca\documents\codeblocks\imca3sem\inheritance\main.cpp
+	<iostream>
+	<stdlib.h>
+	<conio.h>
+
