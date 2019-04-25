@@ -7,6 +7,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <conio.h>
+#include <string>
 using namespace std;
 
 class Person{
@@ -17,9 +18,11 @@ private:
 public:
     void GetData(){
        cout << "Enter Name: " << endl;
-       cin >> mName;
+       cin.clear();
+       cin.sync();
+       getline(cin,mName);
        cout << "Enter Address: " << endl;
-       cin >> mAddress;
+       getline(cin,mAddress);
        cout << "Enter Age: " << endl;
        cin >> mAge;
     }
@@ -38,7 +41,9 @@ public:
     void GetData(){
         Person::GetData();
         cout << "Enter Course ID: " << endl;
-        cin >> mCourseId;
+        cin.clear();
+        cin.sync();
+        getline(cin,mCourseId);
         cout << "Enter Registration No.: " << endl;
         cin >> mRegdNo;
         cout << "Enter Marks: " << endl;
@@ -64,7 +69,9 @@ public:
     void GetData(){
         Person::GetData();
         cout << "Enter Job Title: " << endl;
-        cin >> mJobTitle;
+        cin.clear();
+        cin.sync();
+        getline(cin,mJobTitle);
         cout << "Enter Basic Salary.: " << endl;
         cin >> mBasicSalary;
     }
