@@ -5,6 +5,7 @@
  * Date: 24/4/2019
  */
 #include <iostream>
+#include <iomanip>
 #include <stdlib.h>
 #include <conio.h>
 #include <string>
@@ -14,7 +15,26 @@ class Person{
 private:
     string mName;
     string mAddress;
-    int mAge;
+    class Date {
+    private:
+        int mDay;
+        int mMonth;
+        int mYear;
+        int mAge;
+    public:
+        void GetData(){
+            cout << "Enter Day: " << endl;
+            cin >> mDay;
+            cout << "Enter Month: " << endl;
+            cin >> mMonth;
+            cout << "Enter Year: " << endl;
+            cin >> mYear;
+            mAge = 2019 - mYear;
+        }
+        void PrintInfo(){
+            cout << "Date: " << setw(2) << setfill('0') << mDay << "-" << setw(2) << setfill('0') << mMonth << "-" << mYear << "\nAge: " << mAge << endl;
+        }
+    } mDOB;
 public:
     void GetData(){
        cout << "Enter Name: " << endl;
@@ -23,12 +43,12 @@ public:
        getline(cin,mName);
        cout << "Enter Address: " << endl;
        getline(cin,mAddress);
-       cout << "Enter Age: " << endl;
-       cin >> mAge;
+       mDOB.GetData();
     }
     void PrintInfo(){
         cout << "\t\tPersonal Information"<<endl;
-        cout << "Name: " << mName << "\nAge: " << mAge <<"\nAddress: "<< mAddress <<endl;
+        cout << "Name: " << mName << "\nAddress: "<< mAddress <<endl;
+        mDOB.PrintInfo();
     }
 };
 
@@ -55,7 +75,25 @@ public:
         cout << "Course ID: " << mCourseId << "\nRegistration No.: " << mRegdNo <<"\nMarks: "<< mMarks <<endl;
     }
 };
-class Employee:Person{
+class Specialization{
+private:
+    string mSubject;
+    int mExp;
+public:
+    void GetData(){
+        cout << "Enter Subject of Research: " << endl;
+        cin.clear();
+        cin.sync();
+        getline(cin,mSubject);
+        cout << "Enter Experience: " << endl;
+        cin >> mExp;
+    }
+    void PrintInfo(){
+        cout << "\t\tSpecialization" << endl;
+        cout << "Subject of Research: " << mSubject << "\nExperience: " << mExp << endl;
+    }
+};
+class Employee:Person,Specialization{
 private:
     string mJobTitle;
     float mBasicSalary;
@@ -74,11 +112,13 @@ public:
         getline(cin,mJobTitle);
         cout << "Enter Basic Salary.: " << endl;
         cin >> mBasicSalary;
+        Specialization::GetData();
     }
     void PrintInfo(){
         Person::PrintInfo();
         cout << "\t\tEmployee Information"<<endl;
         cout << "Job Title: " << mJobTitle << "\nBasic Salary: " << mBasicSalary <<"\nGross Salary: "<< mGrossSalary << "\nBonus: " << mBonus <<endl;
+        Specialization::PrintInfo();
     }
     void SetBonusPercentage(float bonusPercentage){
         mBonus = mBasicSalary * (bonusPercentage / 100);
