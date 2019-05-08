@@ -7,8 +7,9 @@
 #include <iostream>
 #include <iomanip>
 #include <stdlib.h>
-#include <conio.h>
+#include <curses.h>
 #include <string>
+
 using namespace std;
 
 class Person{
@@ -93,6 +94,7 @@ public:
         cout << "Subject of Research: " << mSubject << "\nExperience: " << mExp << endl;
     }
 };
+
 class Employee:Person,Specialization{
 private:
     string mJobTitle;
@@ -134,6 +136,8 @@ public:
     }
 
 };
+
+
 int main()
 {
     int choice, choiceStudent, choiceEmployee;
