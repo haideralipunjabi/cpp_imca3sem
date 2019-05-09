@@ -1,12 +1,18 @@
+/*
+ * Name: Function Overloading C++
+ * Author: Haider Ali Punjabi
+ * EMail: haideralipunjabi@hackesta.org
+ * Date: 8/5/2019
+ */
 #include <iostream>
-#include <vector> 
+#include <vector>
 #include <cmath>
 
 using namespace std;
 
 class Matrix {
 private:
-    vector<vector<int>> mMatrix;
+    vector<vector<int> > mMatrix;
     int mRowSize, mColSize;
 public:
     Matrix(int row_size, int col_size){
@@ -15,7 +21,7 @@ public:
         mColSize = col_size;
         mMatrix.resize(mRowSize);
         for(i =0; i< mRowSize; i++){
-            mMatrix[i].resize(mColSize); 
+            mMatrix[i].resize(mColSize);
         }
     }
     Matrix(int size){
@@ -24,7 +30,7 @@ public:
         mColSize = size;
         mMatrix.resize(mRowSize);
         for(i =0; i< mRowSize; i++){
-            mMatrix[i].resize(mColSize); 
+            mMatrix[i].resize(mColSize);
         }
     }
     void CreateMatrix(){
@@ -34,7 +40,7 @@ public:
             for(j =0; j< mColSize; j++){
                 cout << "Enter Data at " << i << "," << j<<": ";
                 cin >> mMatrix[i][j];
-            }   
+            }
         }
         cout << endl;
     }
@@ -44,7 +50,7 @@ public:
         for(i =0; i< mRowSize; i++){
             for(j =0; j< mColSize; j++){
                 cout << mMatrix[i][j] << " ";
-            }   
+            }
         cout << endl;
         }
     }
@@ -54,7 +60,7 @@ public:
         for(int i = 0; i < mRowSize;i++){
             for(int j = 0; j < mColSize;j++){
                 transposed.mMatrix[j][i] = mMatrix[i][j];
-            }   
+            }
         }
         return transposed;
     }
@@ -72,7 +78,7 @@ public:
             }
         }
         return pow(-1,row+col) * matrix.Determinant();
-            
+
     }
     int Determinant(){
         if(mRowSize != mColSize){
@@ -85,7 +91,7 @@ public:
         }
         return determinant;
     }
-    
+
 
     Matrix operator + (Matrix m2) {
         if(mRowSize != m2.mRowSize && mColSize != m2.mColSize) {
@@ -95,7 +101,7 @@ public:
         for(int i = 0; i < mRowSize;i++){
             for(int j = 0; j < mColSize;j++){
                 m3.mMatrix[i][j] = mMatrix[i][j] + m2.mMatrix[i][j];
-            }   
+            }
         }
         return m3;
     }
@@ -107,7 +113,7 @@ public:
         for(int i = 0; i < mRowSize;i++){
             for(int j = 0; j < mColSize;j++){
                 m3.mMatrix[i][j] = mMatrix[i][j] - m2.mMatrix[i][j];
-            }   
+            }
         }
         return m3;
     }
@@ -121,7 +127,7 @@ public:
                 for(int k = 0; k < m2.mRowSize; k++){
                     m3.mMatrix[i][j] += mMatrix[i][k] * m2.mMatrix[k][j];
                 }
-            }   
+            }
         }
         return m3;
     }
@@ -134,7 +140,7 @@ public:
         }
         return m2;
     }
-    
+
 
 };
 
