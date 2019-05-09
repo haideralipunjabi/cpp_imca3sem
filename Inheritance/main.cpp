@@ -7,8 +7,8 @@
 #include <iostream>
 #include <iomanip>
 #include <stdlib.h>
-//#include <curses.h>
-#include <conio.h>
+#include <curses.h>
+// #include <conio.h>
 #include <string>
 
 using namespace std;

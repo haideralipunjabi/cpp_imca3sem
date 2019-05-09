@@ -93,7 +93,7 @@ public:
     }
 
 
-    Matrix operator + (Matrix m2) {
+    Matrix operator + (const Matrix &m2) {
         if(mRowSize != m2.mRowSize && mColSize != m2.mColSize) {
             throw "Addition of Matricies of unequal size";
         }
@@ -105,7 +105,7 @@ public:
         }
         return m3;
     }
-    Matrix operator - (Matrix m2) {
+    Matrix operator - (const Matrix &m2) {
         if(mRowSize != m2.mRowSize && mColSize != m2.mColSize) {
             throw "Subtraction of Matricies of unequal size";
         }
@@ -117,7 +117,7 @@ public:
         }
         return m3;
     }
-    Matrix operator * (Matrix m2) {
+    Matrix operator * (const Matrix &m2) {
         if(mColSize != m2.mRowSize) {
             throw "Multiplication of Matricies of unequal size";
         }
@@ -131,7 +131,7 @@ public:
         }
         return m3;
     }
-    Matrix operator * (int m) {
+    Matrix operator * (const int &m) {
         Matrix m2 = Matrix(mRowSize, mColSize);
         for(int i = 0; i < mRowSize; i++){
             for(int j = 0; j < mColSize; j++){
