@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <stdlib.h>
 #include <curses.h>
+//#include <conio.h>
 #include <string>
 
 using namespace std;
@@ -95,32 +96,39 @@ public:
     }
 };
 
-class Employee:Person,Specialization{
+class Bonus {
+public:
+    float mBonus;
+};
+
+class Employee:Person,Bonus{
 private:
     string mJobTitle;
     float mBasicSalary;
-    float mBonus;
     float mGrossSalary;
 public:
     Employee(){
         mBonus = 0.0;
         mGrossSalary = 0.0;
     }
+    Employee(string JobTitle){
+        mJobTitle = JobTitle;
+    }
     void GetData(){
         Person::GetData();
-        cout << "Enter Job Title: " << endl;
-        cin.clear();
-        cin.sync();
-        getline(cin,mJobTitle);
+        if(mJobTitle==""){
+            cout << "Enter Job Title: " << endl;
+            cin.clear();
+            cin.sync();
+            getline(cin,mJobTitle);
+        }
         cout << "Enter Basic Salary.: " << endl;
         cin >> mBasicSalary;
-        Specialization::GetData();
     }
     void PrintInfo(){
         Person::PrintInfo();
         cout << "\t\tEmployee Information"<<endl;
         cout << "Job Title: " << mJobTitle << "\nBasic Salary: " << mBasicSalary <<"\nGross Salary: "<< mGrossSalary << "\nBonus: " << mBonus <<endl;
-        Specialization::PrintInfo();
     }
     void SetBonusPercentage(float bonusPercentage){
         mBonus = mBasicSalary * (bonusPercentage / 100);
@@ -137,19 +145,43 @@ public:
 
 };
 
+class Teacher:Employee,Specialization{
+
+public:
+    Teacher():Employee("Teacher"){}
+    void GetData(){
+        Employee::GetData();
+        Specialization::GetData();
+    }
+    void PrintInfo(){
+        Employee::PrintInfo();
+        Specialization::PrintInfo();
+    }
+    void SetBonusPercentage(float bonusPercentage){
+        Employee::SetBonusPercentage(bonusPercentage);
+    }
+    void SetBonusAmount(float bonusAmount){
+        Employee::SetBonusAmount(bonusAmount);
+    }
+    void CalculateGrossSalary(){
+        Employee::CalculateGrossSalary();
+    }
+};
 
 int main()
 {
-    int choice, choiceStudent, choiceEmployee;
+    int choice, choiceStudent, choiceEmployee,choiceTeacher;
     Student students[100];
     int studentCount =0;
     Employee employees[100];
     int employeeCount = 0;
+    Teacher teachers[100];
+    int teacherCount = 0;
     float tempEmployeeBonusPercentage, tempEmployeeBonusAmount;
     while(1){
         system("CLS");
         cout << "\t\tMain Menu"<<endl;
-        cout << "1. Student\n2. Employee\n0. Exit\nEnter Choice: "<< endl;
+        cout << "1. Student\n2. Employee\n3. Teacher\n0. Exit\nEnter Choice: "<< endl;
         cin >> choice;
         switch(choice){
         case 0:
@@ -212,7 +244,46 @@ int main()
                 break;
             }
             break;
+        case 3:
+            system("CLS");
+            cout << "\t\Teacher Menu"<<endl;
+            cout << "1. Create Teacher\n2. Calculate Gross Salaries\n3. Give Bonus(percentage)\n4. Give Bonus(Amount)\n5. Show All Teachers\n0. Go Back" <<endl;
+            cin >> choiceTeacher;
+            switch(choiceTeacher){
+            case 0:
+                break;
+            case 1:
+                teachers[teacherCount++].GetData();
+                break;
+            case 2:
+                for(int i=0;i<teacherCount;i++){
+                    teachers[i].CalculateGrossSalary();
+                }
+                break;
+            case 3:
+                cout<<"Enter Bonus Percentage"<<endl;
+                cin >> tempEmployeeBonusPercentage;
+                for(int i=0;i<teacherCount;i++){
+                    teachers[i].SetBonusPercentage(tempEmployeeBonusPercentage);
+                }
+                break;
+            case 4:
+                cout<<"Enter Bonus Amount"<<endl;
+                cin >> tempEmployeeBonusAmount;
+                for(int i=0;i<teacherCount;i++){
+                    teachers[i].SetBonusAmount(tempEmployeeBonusAmount);
+                }
+                break;
+            case 5:
+                for(int i=0;i<teacherCount;i++){
+                    teachers[i].PrintInfo();
+                }
+                getch();
+                break;
+            }
+            break;
         }
+        
     }
 
     return 0;
