@@ -5,8 +5,9 @@
  * Date: 9/5/2019
  */
 #include <iostream>
-#include <curses.h>
-
+//#include <curses.h>
+#include <conio.h>
+#include <stdlib.h>
 using namespace std;
 
 class ComplexNumber {
@@ -50,42 +51,31 @@ int main()
         cout << "\t\tMain Menu"<<endl;
         cout << "1. Add Complex Numbers\n2. Add Complex Number & Real Number\n0. Exit" <<endl;
         cin >> choice;
-        switch(choice){
-        case 0:
-            exit(0);
-            break;
-        case 1:
-            system("CLS");
-            cout << "Enter Real Part of Number 1: ";
-            cin >> numReal1;
-            cout << "Enter Imaginary Part of Number 1: ";
-            cin >> numImg1;
-            cout << "Enter Real Part of Number 2: ";
-            cin >> numReal2;
+        if(choice ==0) exit(0);
+        cout << "Enter Real Part of Number 1: ";
+        cin >> numReal1;
+        cout << "Enter Imaginary Part of Number 1: ";
+        cin >> numImg1;
+        cout << "Enter Real Part of Number 2: ";
+        cin >> numReal2;
+        if(choice == 1){
             cout << "Enter Imaginary Part of Number 2: ";
             cin >> numImg2;
-            c1.SetValues(numReal1,numImg1);
-            c2.SetValues(numReal2,numImg2);
+        }
+        c1.SetValues(numReal1,numImg1);
+        c2.SetValues(numReal2,numImg2);
+
+        switch(choice){
+        case 1:
             c3 = c1 + c2;
-            cout << "Sum of Numbers: ";
-            c3.PrintNumber();
-            getch();
             break;
         case 2:
-            system("CLS");        
-            cout << "Enter Real Part of Number 1: ";
-            cin >> numReal1;
-            cout << "Enter Imaginary Part of Number 1: ";
-            cin >> numImg1;
-            cout << "Enter Real Number 2: ";
-            cin >> numReal2;
-            c1.SetValues(numReal1,numImg1);
-            c2 = c1 + numReal2;
-            cout << "Sum of Numbers: ";
-            c2.PrintNumber();
-            getch();
+            c3 = c1 + numReal2;
             break;
         }
+        cout << "Sum of Numbers: ";
+        c3.PrintNumber();
+        getch();
     }
     return 0;
 }

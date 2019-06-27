@@ -7,6 +7,11 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <stdlib.h>
+#include <conio.h>
+
+#define DEFAULT_ROWS 3
+#define DEFAULT_COLS 3
 
 using namespace std;
 
@@ -15,8 +20,11 @@ private:
     vector<vector<int> > mMatrix;
     int mRowSize, mColSize;
 public:
+    Matrix(){
+        Matrix(DEFAULT_ROWS,DEFAULT_COLS);
+    }
     Matrix(int row_size, int col_size){
-        int i,j;
+        int i;
         mRowSize = row_size;
         mColSize = col_size;
         mMatrix.resize(mRowSize);
@@ -25,7 +33,7 @@ public:
         }
     }
     Matrix(int size){
-        int i,j;
+        int i;
         mRowSize = size;
         mColSize = size;
         mMatrix.resize(mRowSize);
@@ -95,7 +103,7 @@ public:
 
     Matrix operator + (const Matrix &m2) {
         if(mRowSize != m2.mRowSize && mColSize != m2.mColSize) {
-            throw "Addition of Matricies of unequal size";
+            throw "Addition of Matrices of unequal size";
         }
         Matrix m3 = Matrix(mRowSize,mColSize);
         for(int i = 0; i < mRowSize;i++){
@@ -105,9 +113,20 @@ public:
         }
         return m3;
     }
+
+    Matrix operator + (const int &m) {
+        Matrix m2 = Matrix(mRowSize, mColSize);
+        for(int i = 0; i < mRowSize; i++){
+            for(int j = 0; j < mColSize; j++){
+                m2.mMatrix[i][j] = mMatrix[i][j] + m;
+            }
+        }
+        return m2;
+    }
+
     Matrix operator - (const Matrix &m2) {
         if(mRowSize != m2.mRowSize && mColSize != m2.mColSize) {
-            throw "Subtraction of Matricies of unequal size";
+            throw "Subtraction of Matrices of unequal size";
         }
         Matrix m3 = Matrix(mRowSize,mColSize);
         for(int i = 0; i < mRowSize;i++){
@@ -117,9 +136,20 @@ public:
         }
         return m3;
     }
+
+    Matrix operator - (const int &m) {
+        Matrix m2 = Matrix(mRowSize, mColSize);
+        for(int i = 0; i < mRowSize; i++){
+            for(int j = 0; j < mColSize; j++){
+                m2.mMatrix[i][j] = mMatrix[i][j] - m;
+            }
+        }
+        return m2;
+    }
+
     Matrix operator * (const Matrix &m2) {
         if(mColSize != m2.mRowSize) {
-            throw "Multiplication of Matricies of unequal size";
+            throw "Multiplication of Matrices of unequal size";
         }
         Matrix m3 = Matrix(mRowSize, m2.mColSize);
         for(int i = 0; i < mRowSize;i++){
@@ -146,13 +176,87 @@ public:
 
 int main()
 {
-    Matrix m1 = Matrix(4,4);
-    m1.CreateMatrix();
-    m1.DisplayMatrix();
-    try{
-        cout << m1.Determinant() << endl;
+    int choice,constant, rows, cols, determinant;
+    Matrix m1,m2,out;
+
+    while(1){
+
+        system("CLS");
+        cout << "\t\tMain Menu"<<endl;
+        cout << "1. Add 2 Matrices\n2. Add Matrix & Constant\n3. Subtract 2 Matrices\n4. Subtract Matrix & Constant\n5. Multiply 2 Matrices\n6. Multiple Matrix & Constant\n7. Find Transpose of Matrix\n8. Find Determinant of Matrix\n0. Exit\nEnter Choice: " << endl;
+        cin >> choice;
+        if(choice==0)exit(0);
+        system("CLS");
+        cout << "Enter Matrix Row Size: " <<endl;
+        cin >> rows;
+        cout << "Enter Matrix Column Size: " <<endl;
+        cin >> cols;
+        system("CLS");
+        cout << "Matrix 1: "<<endl;
+        m1 = Matrix(rows,cols);
+        m1.CreateMatrix();
+        if(choice == 1 || choice == 3)
+        {
+            cout << "Matrix 2: "<<endl;
+            m2 = Matrix(rows,cols);
+            m2.CreateMatrix();
+        }
+        else if(choice == 5){
+            rows = 0;
+            cols = 0;
+            system("CLS");
+            cout << "Enter Matrix Row Size: " <<endl;
+            cin >> rows;
+            cout << "Enter Matrix Column Size: " <<endl;
+            cin >> cols;
+            system("CLS");
+            cout << "Matrix 2: "<<endl;
+            cout << rows << "," << cols;
+            m2 = Matrix(rows,cols);
+            m2.CreateMatrix();
+        }
+        else if(choice == 2 || choice == 4 || choice ==6){
+            cout << "Enter Constant Value: ";
+            cin >> constant;
+        }
+        system("CLS");
+        try {
+            switch(choice){
+            case 1:
+                out = m1 + m2;
+                break;
+            case 2:
+                out = m1 + constant;
+                break;
+            case 3:
+                out = m1 - m2;
+                break;
+            case 4:
+                out = m1 - constant;
+                break;
+            case 5:
+                out = m1 * m2;
+                break;
+            case 6:
+                out = m1 * constant;
+                break;
+            case 7:
+                out = m1.TransposeMatrix();
+                break;
+            case 8:
+                determinant = m1.Determinant();
+                cout << "Determinant: " << determinant <<endl;
+                break;
+            }
+            if(choice != 8){
+                out.DisplayMatrix();
+            }
+            getch();
+        }
+        catch(char const* msg){
+            cout << "Error: "<< msg << endl;
+            getch();
+        }
     }
-    catch(const char* msg){
-        cerr << msg << endl;
-    }
+
 }

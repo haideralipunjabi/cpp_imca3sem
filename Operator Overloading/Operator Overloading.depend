@@ -1,6 +1,8 @@
 # depslib dependency file v1.0
-1557375989 source:c:\users\bca\documents\codeblocks\imca3sem\operator overloading\main.cpp
+1561623755 source:c:\users\bca\documents\codeblocks\imca3sem\operator overloading\main.cpp
 	<iostream>
 	<vector>
 	<cmath>
+	<stdlib.h>
+	<conio.h>
 
